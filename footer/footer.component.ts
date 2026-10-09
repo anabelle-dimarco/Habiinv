@@ -37,7 +37,7 @@ simulá tu retorno y seguí tu inversión online.</p>
     </footer>
   `,
   styles: `
-    footer { background: var(--verde-oscuro); padding: 96px var(--pad-x) 48px; }
+    footer { background: var(--verde-panel); padding: 96px var(--pad-x) 48px; }
     .info { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 48px; }
     .marca { max-width: 331px; display: grid; gap: 24px; }
     .logo { display: block; width: 229px; max-width: 100%; height: auto; }
