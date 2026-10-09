@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-contacto',
@@ -8,10 +8,10 @@ import { FormsModule } from '@angular/forms';
     <section id="contacto" class="seccion">
       <div class="fondo-img"></div>
       <div class="contenedor">
-        <form class="form" #f="ngForm" (ngSubmit)="enviar(f.value)">
+        <form class="form" #f="ngForm" (ngSubmit)="enviar(f)" novalidate>
           <div class="texto">
-            <h2 class="titulo">¿Querés invertir? Dejanos tus datos</h2>
-            <p>Un asesor se comunica con vos para acompañarte en cada paso.</p>
+            <h2 class="titulo">¿Estás listo para empezar a invertir?</h2>
+            <p>Déjanos tus datos y un asesor te guía paso a paso. No necesitas experiencia previa.</p>
           </div>
 
           <div class="fila">
@@ -33,9 +33,13 @@ import { FormsModule } from '@angular/forms';
             </select>
           </label>
 
-          <button class="btn-cta" type="submit" [disabled]="f.invalid">Quiero que me contacten</button>
+          <button class="btn-cta" type="submit">
+            Explorar oportunidades
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          @if (f.submitted && f.invalid) { <p class="error" role="alert">Completá los campos marcados para continuar.</p> }
           @if (enviado()) { <p class="ok" role="status">¡Listo! Te contactamos a la brevedad.</p> }
-          <p class="nota">Sin compromiso. Registrar tu interés no implica realizar una inversión.</p>
+          <p class="nota">Sin compromiso. Registrar tu interés no te obliga a invertir.</p>
         </form>
       </div>
     </section>
@@ -52,8 +56,9 @@ import { FormsModule } from '@angular/forms';
     input, select { padding: 16px 20px; background: var(--verde-oscuro); border: 1px solid #4C5F5F; border-radius: 20px 4px; color: var(--crema); font: 300 16px/16px var(--font); letter-spacing: .02em; }
     input::placeholder { color: #929595; }
     input:focus, select:focus { outline: none; border: 1.5px solid var(--turquesa-btn); background: #0D2222; }
-    .btn-cta { width: 100%; margin-top: 8px; color: var(--verde-oscuro); }
-    .btn-cta:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-cta { width: 100%; max-width: 576px; height: 58px; margin-top: 8px; color: var(--verde-oscuro); }
+    input.ng-invalid.ng-touched { border-color: #E5736A; }
+    .error { color: #E5736A; text-align: center; }
     .nota { text-align: center; font-style: italic; font-size: 16px; color: var(--turquesa-claro); }
     .ok { color: var(--turquesa-btn); text-align: center; }
     @media (max-width: 700px) { .fila { grid-template-columns: 1fr; } .fondo-img { opacity: .2; width: 100%; } }
@@ -61,9 +66,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class ContactoComponent {
   enviado = signal(false);
-  enviar(datos: unknown) {
-    // TODO: conectar con tu backend / servicio de email
-    console.log('Contacto', datos);
+  enviar(f: NgForm) {
+    if (f.invalid) {
+      f.control.markAllAsTouched();
+      return;
+    }
+
+    console.log('Contacto', f.value);
     this.enviado.set(true);
   }
 }
+
