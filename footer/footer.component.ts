@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
       <div class="contenedor">
         <div class="info">
           <div class="marca">
-            <img src="/img/logo.png" alt="Habiinv" height="48">
+            <img class="logo" src="/img/logo.png" alt="Habiinv" width="229" height="48">
             <p>Plataforma de crowdfunding inmobiliario para invertir desde USD 100 en proyectos de Latinoamérica.</p>
           </div>
           <div class="columnas">
@@ -39,6 +39,7 @@ import { Component } from '@angular/core';
     footer { background: var(--verde-oscuro); padding: 96px var(--pad-x) 48px; }
     .info { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 48px; }
     .marca { max-width: 331px; display: grid; gap: 24px; }
+    .logo { display: block; width: 229px; max-width: 100%; height: auto; }
     .marca p { font-size: 16px; line-height: 20px; color: #DCE4E1; }
     .columnas { display: flex; gap: 80px; }
     nav, .contacto { display: flex; flex-direction: column; gap: 12px; font-size: 16px; }
@@ -50,3 +51,4 @@ import { Component } from '@angular/core';
   `,
 })
 export class FooterComponent {}
+
