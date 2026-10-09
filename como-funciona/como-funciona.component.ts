@@ -32,9 +32,9 @@ import { Component } from '@angular/core';
     .seccion { padding-top: 120px; padding-bottom: 120px; background: var(--fondo-claro); color: var(--texto-btn); }
 
     .panel {
-      position: relative; border-radius: 40px 80px 40px 80px; overflow: hidden;
-      min-height: 680px; display: flex; align-items: center;
-      padding: 80px clamp(28px, 10%, 128px);
+      position: relative; border-radius: 4px 80px 4px 80px; overflow: hidden;
+      min-height: 738px; display: flex; align-items: center;
+      padding: 180px clamp(28px, 9.7%, 140px);
       color: var(--crema);
       background:
         linear-gradient(0deg, #102A2AB2, #102A2AB2),
@@ -64,7 +64,7 @@ import { Component } from '@angular/core';
 
     @media (max-width: 1100px) { .pasos { grid-template-columns: repeat(2, 1fr); gap: 56px 40px; } }
     @media (max-width: 620px) {
-      .panel { min-height: 0; padding: 56px 28px; border-radius: 28px 56px 28px 56px; }
+      .panel { min-height: 0; padding: 56px 28px; border-radius: 4px 56px 4px 56px; }
       .pasos { grid-template-columns: 1fr; margin-top: 90px; }
     }
   `,
