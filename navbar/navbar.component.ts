@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
   template: `
-    <header class="wrap">
+    <header class="wrap" [class.compacto]="compacto()">
       <nav class="navbar" aria-label="Principal">
         <!-- Cuando exista public/img/logo.png se puede reemplazar este bloque por:
              <img class="logo" src="/img/logo.png" alt="Habiinv" height="40"> -->
@@ -29,12 +29,22 @@ import { Component } from '@angular/core';
     </header>
   `,
   styles: `
-    .wrap { position: absolute; top: 40px; left: 0; right: 0; padding: 0 var(--pad-x); z-index: 10; }
+    .wrap {
+      position: fixed; top: 40px; left: 0; right: 0; padding: 0 var(--pad-x); z-index: 100;
+      transition: top .25s ease;
+    }
+    .wrap.compacto { top: 12px; }
     .navbar {
       max-width: 1448px; margin: 0 auto; height: 80px; padding: 12px 12px 12px 28px;
       display: flex; align-items: center; justify-content: space-between; gap: 24px;
       background: rgba(250, 250, 247, .08); border: 1px solid rgba(250, 250, 247, .12);
       border-radius: 100px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      transition: background .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    /* Sobre las secciones claras el cristal translúcido no contrasta: se opaca en verde. */
+    .compacto .navbar {
+      background: rgba(10, 25, 25, .9); border-color: rgba(250, 250, 247, .16);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .3);
     }
     .marca { display: flex; align-items: center; gap: 12px; }
     .logo { height: 40px; width: auto; display: block; }
@@ -47,6 +57,15 @@ import { Component } from '@angular/core';
     .btn-cta { min-height: 56px; padding: 16px 24px; }
     @media (max-width: 1240px) { li a { font-size: 17px; padding: 16px 8px; } .wordmark { font-size: 20px; } }
     @media (max-width: 1040px) { ul { display: none; } }
+    @media (prefers-reduced-motion: reduce) { .wrap, .navbar { transition: none; } }
   `,
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  /** true en cuanto el usuario baja del borde: el navbar se acerca al tope y se opaca. */
+  readonly compacto = signal(false);
+
+  @HostListener('window:scroll')
+  alScrollear() {
+    this.compacto.set(window.scrollY > 40);
+  }
+}
