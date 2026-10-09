@@ -45,8 +45,23 @@ import { FormsModule, NgForm } from '@angular/forms';
     </section>
   `,
   styles: `
-    .seccion { position: relative; padding-top: 158px; padding-bottom: 120px; overflow: hidden; }
-    .fondo-img { position: absolute; top: 0; right: 0; width: 48%; height: 100%; background: var(--img-ciudad) center / cover; border-radius: 1000px 0 0 0; opacity: .9; }
+    .seccion { position: relative; padding-top: 158px; padding-bottom: 120px; overflow: hidden; background: var(--verde-oscuro); }
+    .fondo-img {
+      position: absolute; top: 0; right: 0; width: 49%; height: 100%;
+    }
+
+    .fondo-img::before {
+      content: ''; position: absolute; inset: 0 0 0 -2%;
+      background: linear-gradient(360deg, rgba(53, 213, 192, .4) 0%, rgba(16, 42, 42, .4) 81.73%);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 4%);
+      mask-image: linear-gradient(to right, transparent, #000 4%);
+    }
+
+    .fondo-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--img-ciudad) center / cover;
+      border-top-left-radius: 100% 100%;
+    }
     .contenedor { position: relative; }
     .form { max-width: 576px; display: flex; flex-direction: column; gap: 20px; }
     .texto { display: grid; gap: 28px; margin-bottom: 28px; }
@@ -77,3 +92,4 @@ export class ContactoComponent {
     this.enviado.set(true);
   }
 }
+
