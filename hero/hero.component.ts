@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-hero',
   template: `
     <section id="inicio" class="hero">
-      <div class="fondo"></div>
       <div class="foto" role="img" aria-label="Edificio residencial con balcones y vegetación"></div>
       <div class="contenedor texto">
         <div class="principal">
@@ -28,13 +27,9 @@ import { Component } from '@angular/core';
     .hero {
       position: relative; min-height: 900px; overflow: hidden;
       display: flex; align-items: center; padding-top: 140px;
-      background: #04100F;
-    }
-    .fondo {
-      position: absolute; inset: 215px 0 0 0;
-      background: linear-gradient(2deg,
-        #3FDCC6 0%, #1E8A7C 22%, #0E4745 44%, #0A2524 66%, #04100F 100%);
-      filter: blur(4px);
+      background:
+        linear-gradient(1.97deg, rgba(53, 213, 192, .2) 5.61%, rgba(16, 42, 42, .2) 44.2%),
+        var(--verde-oscuro);
     }
     .foto {
       position: absolute; top: 0; right: 0; bottom: 0; width: min(56%, 1040px);
