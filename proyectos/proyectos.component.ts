@@ -48,7 +48,7 @@ import { PROYECTOS, detalles, ubicacion } from './proyectos.data';
     .lista { display: grid; gap: 40px; }
     .card {
       display: grid; grid-template-columns: 53.6% 1fr; gap: 32px;
-      padding: 32px; background: var(--verde-panel); border-radius: 40px 80px 40px 80px;
+      min-height: 563px; padding: 40px; background: var(--verde-panel); border-radius: 0 80px 0 80px;
     }
 
     .foto { position: relative; border-radius: 20px 60px 20px 60px; overflow: hidden; }
@@ -77,7 +77,7 @@ import { PROYECTOS, detalles, ubicacion } from './proyectos.data';
     .btn-chico svg { width: 18px; height: 18px; }
 
     @media (max-width: 1000px) {
-      .card { grid-template-columns: 1fr; gap: 28px; padding: 20px; border-radius: 28px 56px 28px 56px; }
+      .card { grid-template-columns: 1fr; gap: 28px; min-height: 0; padding: 20px; border-radius: 0 56px 0 56px; }
       .foto { aspect-ratio: 16 / 10; border-radius: 16px 44px 16px 44px; }
       .info { padding-right: 0; gap: 28px; }
       .btn-chico { align-self: flex-start; }
