@@ -10,7 +10,7 @@ import { FormsModule, NgForm } from '@angular/forms';
       <div class="contenedor">
         <form class="form" #f="ngForm" (ngSubmit)="enviar(f)" novalidate>
           <div class="texto">
-            <h2 class="titulo">¿Estás listo para empezar a invertir?</h2>
+            <h2 class="titulo">¿Estás listo para empezar a <em>invertir</em>?</h2>
             <p>Déjanos tus datos y un asesor te guía paso a paso. No necesitas experiencia previa.</p>
           </div>
 
@@ -50,6 +50,7 @@ import { FormsModule, NgForm } from '@angular/forms';
     .contenedor { position: relative; }
     .form { max-width: 576px; display: flex; flex-direction: column; gap: 20px; }
     .texto { display: grid; gap: 28px; margin-bottom: 28px; }
+    .titulo em { color: var(--turquesa); }
     .texto p { font-size: 20px; line-height: 24px; }
     .fila { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     label { display: flex; flex-direction: column; gap: 10px; font-size: 16px; color: #DCE4E1; }
@@ -76,4 +77,3 @@ export class ContactoComponent {
     this.enviado.set(true);
   }
 }
-
