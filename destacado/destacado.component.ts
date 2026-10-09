@@ -53,8 +53,8 @@ import { PROYECTOS, detalles, ubicacion } from '../proyectos/proyectos.data';
 
     .slide {
       position: relative; display: flex; align-items: center; overflow: hidden;
-      min-height: 660px; padding: 72px clamp(28px, 6%, 92px);
-      border-radius: 40px 80px 40px 80px; background: var(--verde-oscuro); color: var(--crema);
+      min-height: 881px; padding: 140px clamp(28px, 5.5%, 80px);
+      border-radius: 0 80px 0 80px; background: var(--verde-oscuro); color: var(--crema);
     }
     .fondo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .velo { position: absolute; inset: 0; background: #102A2AB2; }
@@ -85,7 +85,7 @@ import { PROYECTOS, detalles, ubicacion } from '../proyectos/proyectos.data';
     .next { right: clamp(8px, 5%, 64px); }
 
     @media (max-width: 860px) {
-      .slide { min-height: 0; padding: 48px 28px 48px 24px; border-radius: 28px 56px 28px 56px; }
+      .slide { min-height: 0; padding: 48px 28px 48px 24px; border-radius: 0 56px 0 56px; }
       .info { max-width: none; }
       .nav { top: auto; bottom: 16px; transform: none; width: 44px; height: 44px; }
     }
