@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
         <div class="info">
           <div class="marca">
             <img class="logo" src="/img/logo.png" alt="Habiinv" width="229" height="48">
-            <p>Plataforma de crowdfunding inmobiliario para invertir desde USD 100 en proyectos de Latinoamérica.</p>
+            <p>Invertí en proyectos inmobiliarios seleccionados junto a otros inversores, 
+simulá tu retorno y seguí tu inversión online.</p>
           </div>
           <div class="columnas">
             <nav aria-label="Navegación">
@@ -29,7 +30,7 @@ import { Component } from '@angular/core';
         <hr>
         <div class="legal">
           <span>© 2026 Habiinv. Todos los derechos reservados.</span>
-          <span>Toda inversión implica riesgos. La rentabilidad no está garantizada.</span>
+          <span>Toda inversión implica riesgos. Los retornos son estimados y no están garantizados.</span>
           <span class="links"><a href="#">Términos y condiciones</a><a href="#">Política de privacidad</a></span>
         </div>
       </div>
