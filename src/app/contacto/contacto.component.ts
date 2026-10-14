@@ -1,5 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { PAISES, paisPorTelefono } from './paises.data';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-contacto',
@@ -19,12 +21,21 @@ import { FormsModule, NgForm } from '@angular/forms';
               <input name="nombre" ngModel required placeholder="Tu nombre">
             </label>
             <label>Teléfono
-              <input name="telefono" type="tel" ngModel required placeholder="+54 9 351 000 0000">
+              <input name="telefono" type="tel" ngModel required placeholder="+54 9 351 000 0000"
+                     (ngModelChange)="onTelefonoChange($event)">
             </label>
           </div>
-          <label>Correo electrónico
-            <input name="email" type="email" ngModel required email placeholder="nombre@correo.com">
-          </label>
+          <div class="fila">
+            <label>Correo electrónico
+              <input name="email" type="email" ngModel required email placeholder="nombre@correo.com">
+            </label>
+            <label>País
+              <select name="pais" [(ngModel)]="pais" required>
+                <option value="" disabled>Se detecta por el teléfono</option>
+                @for (p of paises; track p) { <option [value]="p">{{ p }}</option> }
+              </select>
+            </label>
+          </div>
           <label>Proyecto de interés
             <select name="proyecto" ngModel="Nova Comfort">
               <option>Nova Comfort</option>
@@ -33,11 +44,12 @@ import { FormsModule, NgForm } from '@angular/forms';
             </select>
           </label>
 
-          <button class="btn-cta" type="submit">
-            Explorar oportunidades
+          <button class="btn-cta" type="submit" [disabled]="enviando()">
+            {{ enviando() ? 'Enviando...' : 'Explorar oportunidades' }}
             <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
           @if (f.submitted && f.invalid) { <p class="error" role="alert">Completá los campos marcados para continuar.</p> }
+          @if (error()) { <p class="error" role="alert">No pudimos enviar tus datos. Probá de nuevo.</p> }
           @if (enviado()) { <p class="ok" role="status">¡Listo! Te contactamos a la brevedad.</p> }
           <p class="nota">Sin compromiso. Registrar tu interés no te obliga a invertir.</p>
         </form>
@@ -81,15 +93,47 @@ import { FormsModule, NgForm } from '@angular/forms';
   `,
 })
 export class ContactoComponent {
+  readonly paises = PAISES;
+  pais = '';
+
   enviado = signal(false);
-  enviar(f: NgForm) {
+  enviando = signal(false);
+  error = signal(false);
+
+  onTelefonoChange(telefono: string) {
+    const detectado = paisPorTelefono(telefono);
+    if (detectado) this.pais = detectado;
+  }
+
+  async enviar(f: NgForm) {
     if (f.invalid) {
       f.control.markAllAsTouched();
       return;
     }
 
-    console.log('Contacto', f.value);
-    this.enviado.set(true);
+    if (!environment.googleSheetsEndpoint) {
+      console.log('Contacto (falta configurar googleSheetsEndpoint en environment)', f.value);
+      this.enviado.set(true);
+      return;
+    }
+
+    this.enviando.set(true);
+    this.error.set(false);
+
+    try {
+      // Content-Type 'text/plain' evita el preflight CORS de Google Apps Script;
+      // el Web App debe leer el body como JSON desde e.postData.contents.
+      await fetch(environment.googleSheetsEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(f.value),
+      });
+      this.enviado.set(true);
+    } catch {
+      this.error.set(true);
+    } finally {
+      this.enviando.set(false);
+    }
   }
 }
 
